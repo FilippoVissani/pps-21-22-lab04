@@ -17,22 +17,22 @@ trait Course:
 object Student:
   def apply(name: String, year: Int = 2017): Student = StudentImpl(name, year)
 
+  private case class StudentImpl(override val name: String,
+                                 override val year: Int) extends Student:
+    var coursesList: List[Course] = Nil()
+
+    override def enrolling(course: Course*): Unit =
+      course.foreach(course => coursesList = append(Cons(course, Nil()), coursesList))
+
+    override def hasTeacher(teacher: String): Boolean = contains(map(coursesList)(f => f.teacher), teacher)
+
+    override def courses: List[String] = map(coursesList)(f => f.name)
+
 object Course:
   def apply(name: String, teacher: String): Course = CourseImpl(name, teacher)
 
   private case class CourseImpl(override val name: String,
                                 override val teacher: String) extends Course
-
-case class StudentImpl(override val name: String,
-                       override val year: Int) extends Student:
-  private var coursesList: List[Course] = Nil()
-
-  override def enrolling(course: Course*): Unit =
-    course.foreach(course => coursesList = append(Cons(course, Nil()), coursesList))
-
-  override def hasTeacher(teacher: String): Boolean = contains(map(coursesList)(f => f.teacher), teacher)
-
-  override def courses: List[String] = map(coursesList)(f => f.name)
 
 @main def checkStudents(): Unit =
   val cPPS = Course("PPS", "Viroli")

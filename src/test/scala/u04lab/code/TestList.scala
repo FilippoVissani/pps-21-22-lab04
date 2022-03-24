@@ -1,4 +1,4 @@
-package u04lab.polyglot.a01a
+package u04lab.code
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

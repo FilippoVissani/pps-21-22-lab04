@@ -22,7 +22,7 @@ object Student:
     var coursesList: List[Course] = Nil()
 
     override def enrolling(course: Course*): Unit =
-      course.foreach(course => coursesList = append(Cons(course, Nil()), coursesList))
+      course.foreach(course => coursesList = Cons(course, coursesList))
 
     override def hasTeacher(teacher: String): Boolean = contains(map(coursesList)(f => f.teacher), teacher)
 

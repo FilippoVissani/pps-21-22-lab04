@@ -60,4 +60,10 @@ object List:
     case _ => Nil()
 
   def take[A](list: List[A], n: Int): List[A] = reverse(drop(reverse(list), length(list) - n))
+
+  def apply[A](elements: A*): List[A] =
+    var list: List[A] = Nil()
+    elements.foreach(e => list = append(list, Cons(e, Nil())))
+    list
+
 end List
